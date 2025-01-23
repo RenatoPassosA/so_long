@@ -46,15 +46,15 @@ void    check_borders(t_map *map)
     index = 0;
     while (y < map->height)
     {
-        if (map->matrix[y][0] != '1' || map->matrix[y][map->width - 1] != '1')
+        if (map->matrix[y][0].value != '1' || map->matrix[y][map->width - 1].value != '1')
             printf("Error\n mapa fora de formato laterallll");
         y++;   
     }
     while (index < map->width)
     {
-        if (map->matrix[0][index] != '1')
+        if (map->matrix[0][index].value != '1')
             printf("Error\n mapa fora de formato lateral\n");
-        if (map->matrix[map->height - 1][index] != '1')
+        if (map->matrix[map->height - 1][index].value != '1')
             printf("Error\n mapa fora de formato superior/inferior");
         index++;
     }

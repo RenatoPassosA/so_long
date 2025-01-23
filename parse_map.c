@@ -45,6 +45,49 @@ void check_x_len(char *line, int *xaxis)
     }
 }
 
+void free_matrix(t_values **matrix, int y)
+{
+    int i;
+
+    i = 0;
+    while (i < y)
+    {
+        free(matrix[i]);
+        i++;
+    }
+    free(matrix);
+}
+
+void    fill_matrix(t_map_content *map_content, t_map *map)
+{
+    int x;
+    int y;
+
+    x = 0;
+    y = 0;
+    map->matrix = (t_values **)malloc(sizeof(t_values *) * map->height);
+    if (!map->matrix)
+        return ;
+    while (y < map->height)
+    {
+        map->matrix[y] = (t_values *)malloc(sizeof(t_values) * map->width);
+        if (!map->matrix[y])
+        {
+            free_matrix(map->matrix, y);
+            return ;
+        }
+        while(x < map->width)
+        {
+            map->matrix[y][x].value = map_content->sqm;
+            map->matrix[y][x].visited = 0;
+            map_content = map_content->next;
+            x++;
+        }
+        x = 0;
+        y++;
+    }
+}
+
 t_map_content *read_map(char *file, t_map *map, t_map_content *map_content)
 {
     int fd;
@@ -67,86 +110,7 @@ t_map_content *read_map(char *file, t_map *map, t_map_content *map_content)
     close(fd);
     map->height = yaxis;
     map->width = xaxis;
+    //printf("-------%d------------%d", map->width, map->height);
     free(line);
     return (map_content);
 }
-
-void free_matrix(char **matrix, int y)
-{
-    int i;
-
-    i = 0;
-    while (i < y)
-    {
-        free(matrix[i]);
-        i++;
-    }
-    free(matrix);
-}
-
-void    fill_matrix(t_map_content *map_content, t_map *map)
-{
-    int x;
-    int y;
-
-    x = 0;
-    y = 0;
-    map->matrix = (char **)malloc(sizeof(char *) * map->height);
-    if (!map->matrix)
-        return ;
-    while (y < map->height)
-    {
-        map->matrix[y] = (char *)malloc(sizeof(char) * map->width);
-        if (!map->matrix[y])
-        {
-            free_matrix(map->matrix, y);
-            return ;
-        }
-        while(x < map->width)
-        {
-            map->matrix[y][x] = map_content->sqm;
-            map_content = map_content->next;
-            x++;
-        }
-        x = 0;
-        y++;
-    }
-}
-
-int main(int ac, char **av)
-{
-
-    t_map *map;
-    t_map_content *map_content;
-
-    map = (t_map *)malloc(sizeof(t_map));;
-    map_content = NULL;
-    if (ac != 2)
-    {
-        printf("Error parametros\n");   
-        return (0);
-    }
-    map_content = read_map(av[1], map, map_content);
-    fill_matrix(map_content, map);
-    error_handling(map, map_content);
-    run_flood_fill(map, map_content);
-
-/*    // PRINT MATRIX
-    int x = 0;
-    int y = 0;
-    while (y < map->height)
-    {
-        while(x < map->width)
-        {
-            printf("%c", map->matrix[y][x]);
-            x++;
-        }
-        printf("\n");
-        x = 0;
-        y++;
-    }*/
-
-
-
-}
-

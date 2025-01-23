@@ -14,7 +14,7 @@ int    collectables_counter(t_map_content *content)
     return (collect_counter);
 }
 
-int *get_starter_position(t_map *map)
+int *get_position(t_map *map, char value)
 {
     int *coordinates;
     int x;
@@ -29,7 +29,7 @@ int *get_starter_position(t_map *map)
     {
         while(x < map->width)
         {
-            if (map->matrix[y][x] == 'P')
+            if (map->matrix[y][x].value == value)
             {
                 coordinates[0] = y;
                 coordinates[1] = x;
@@ -45,32 +45,34 @@ int *get_starter_position(t_map *map)
 
 void    flood_fill(t_map *map, int y, int x)
 {
- 
    
     if (x < 0 || y < 0 || x >= map->width || y >= map->height)
         return;
-    if (map->matrix[y][x] == '1' || map->matrix[y][x] == 'V')
+    if (map->matrix[y][x].value == '1' || map->matrix[y][x].visited == 1)
         return;    
-    if (map->matrix[y][x] == 'C')
+    if (map->matrix[y][x].value == 'C')
         map->collectable_counter++;
-    if (map->matrix[y][x] == 'E')
+    if (map->matrix[y][x].value == 'E')
         map->found_exit = 1;
-    if (map->matrix[y][x] != 'P')
-        map->matrix[y][x] = 'V';
+    if (map->matrix[y][x].value != 'P')
+        map->matrix[y][x].visited = 1;
     flood_fill(map, y, x + 1);
     flood_fill(map, y, x - 1);
     flood_fill(map, y + 1, x);
     flood_fill(map, y - 1, x);
 }
 
-void    run_flood_fill(t_map *map, t_map_content *content)
+void    run_flood_fill(t_map *map, t_map_content *content, t_game *game)
 {
     int *starter_position;
     int y;
     int x;
     int colletables_in_map;
 
-    starter_position = get_starter_position(map);
+    starter_position = get_position(map, 'P');
+    
+    game->player.y = starter_position[0];
+    game->player.x = starter_position[1];
     y = starter_position[0];
     x = starter_position[1];
     free(starter_position);

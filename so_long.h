@@ -11,22 +11,63 @@
 #include <math.h>
 #include <limits.h>
 
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
+
+
+
+#define IMG_WIDTH 32
+#define IMG_HEIGHT 32
+#define TILE_SIZE 32
+
+typedef struct player
+{
+	int x;
+	int	y;
+	int	collected;
+} t_player;
+
+typedef struct values
+{
+	char value;
+	int	visited;
+} t_values;
+
 
 typedef struct map
 {
-	char **matrix;
+	t_values **matrix;
 	int width;
 	int height;
 	int collectable_counter;
     int found_exit;
 }	t_map;
+
+typedef struct s_image
+{
+	void	*xpm_ptr;
+	int		x;
+	int		y;
+}	t_image;
+
+typedef struct s_game
+{
+    void *mlx_ptr;
+    void *win_ptr;
+	int width;
+	int height;
+	t_player player;
+	t_image floor;
+	t_image wall;
+	t_image character_up;
+	t_image character_down;
+	t_image character_left;
+	t_image character_right;
+	t_image collectable;
+	t_image closed_door;
+	t_image opened_door;
+	t_image on_door;
+	t_map *map;
+} 	t_game;	
+
 
 typedef struct map_content
 {
@@ -36,10 +77,10 @@ typedef struct map_content
 
 t_map_content	*lst_new(char value);
 size_t	ft_strlen(const char *str);
-char	**ft_split(char const *s, char c);
 char	*get_next_line(int fd);
-int	count_words(char *s, char c);
 void    error_handling(t_map *map, t_map_content *content);
-void run_flood_fill(t_map *map, t_map_content *content);
+void    run_flood_fill(t_map *map, t_map_content *content, t_game *game);
+t_map_content *read_map(char *file, t_map *map, t_map_content *map_content);
+void    fill_matrix(t_map_content *map_content, t_map *map);
 
 #endif
