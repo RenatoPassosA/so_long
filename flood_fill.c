@@ -45,7 +45,6 @@ int *get_position(t_map *map, char value)
 
 void    flood_fill(t_map *map, int y, int x)
 {
-   
     if (x < 0 || y < 0 || x >= map->width || y >= map->height)
         return;
     if (map->matrix[y][x].value == '1' || map->matrix[y][x].visited == 1)
@@ -62,7 +61,7 @@ void    flood_fill(t_map *map, int y, int x)
     flood_fill(map, y - 1, x);
 }
 
-void    run_flood_fill(t_map *map, t_map_content *content, t_game *game)
+void    run_flood_fill(t_map *map, t_map_content *content, t_game *game) //DAR FREE NESSAS 3 VARIÁVEIS EM CASO DE ERRO
 {
     int *starter_position;
     int y;
@@ -70,7 +69,6 @@ void    run_flood_fill(t_map *map, t_map_content *content, t_game *game)
     int colletables_in_map;
 
     starter_position = get_position(map, 'P');
-    
     game->player.y = starter_position[0];
     game->player.x = starter_position[1];
     y = starter_position[0];

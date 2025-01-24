@@ -9,7 +9,7 @@ void map_size(t_map *map)
         printf("Error\nmapa não retangular");
 }
 
-void    map_counter(t_map_content *content)
+void    map_counter(t_map_content *map_content)
 {
     int player_counter;
     int exit_counter;
@@ -18,15 +18,15 @@ void    map_counter(t_map_content *content)
     player_counter = 0;
     exit_counter = 0;
     collect_counter = 0;
-    while(content->next != NULL)
+    while(map_content->next != NULL)
     {
-        if (content->sqm == 'P')
+        if (map_content->sqm == 'P')
             player_counter++;
-        if (content->sqm == 'E')
+        if (map_content->sqm == 'E')
             exit_counter++;
-        if (content->sqm == 'C')
+        if (map_content->sqm == 'C')
         collect_counter++;
-        content = content->next;
+        map_content = map_content->next;
     }
     if (player_counter != 1)
         printf("Error\nmais de uma ou nenhuma posição inicial");
@@ -60,10 +60,17 @@ void    check_borders(t_map *map)
     }
 }
 
-void    error_handling(t_map *map, t_map_content *content)
+void clear_data(t_map *map, t_map_content *map_content)
+{
+    free_matrix(map->matrix, map->height - 1);
+    ft_lstclear(&(map_content));
+    exit(0);
+}
+
+void    error_handling(t_map *map, t_map_content *map_content) //DAR FREE CORRETAMENTE
 {
     map_size(map);
-    map_counter(content);
+    map_counter(map_content);
     check_borders(map);
 }
 

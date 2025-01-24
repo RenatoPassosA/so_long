@@ -12,43 +12,33 @@
 
 #include "get_next_line.h"
 
-char	*concat(char *final, char *str, int index)
+char *ft_strjoin(char *s1, char *s2)
 {
-	int	strindex;
+    int size;
+    int i;
+    int j;
+    char *str;
 
-	strindex = 0;
-	while (str[strindex] != '\0')
-	{
-		final[index] = str[strindex];
-		index++;
-		strindex++;
-	}
-	return (final);
+    if (!s1)
+        s1 = "";
+    size = ft_strlen(s1) + ft_strlen(s2);
+    str = (char *)malloc((size + 1) * sizeof(char));
+    if (!str)
+        return (NULL);
+    i = -1;
+    while (s1[++i])  // Copy characters from s1 to str
+		str[i] = s1[i];
+    j = 0;
+    while (s2[j])  // Copy characters from s2 to str
+    {
+        str[i] = s2[j];
+        i++;
+        j++;
+    }
+    str[i] = '\0';  // Null-terminate the string
+    return (str);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
-{
-	int		size;
-	int		index;
-	char	*str;
-
-	if (!s1 && !s2)
-		return (NULL);
-	index = 0;
-	size = ft_strlen((char *)s1) + ft_strlen((char *)s2);
-	str = (char *)malloc(size * sizeof(char) + 1);
-	if (!str)
-		return (NULL);
-	if (s1)
-		str = concat(str, (char *)s1, index);
-	index = ft_strlen((char *)s1);
-	if (s2)
-		str = concat(str, (char *)s2, index);
-	index = index + ft_strlen((char *)s2);
-	str[index] = '\0';
-	free(s1);
-	return (str);
-}
 
 char	*ft_substr(char *s, unsigned int start, size_t len)
 {

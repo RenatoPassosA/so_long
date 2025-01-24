@@ -23,6 +23,8 @@ typedef struct player
 	int x;
 	int	y;
 	int	collected;
+	char direction;
+	int	moves;
 } t_player;
 
 typedef struct values
@@ -48,6 +50,12 @@ typedef struct s_image
 	int		y;
 }	t_image;
 
+typedef struct map_content
+{
+	char sqm;
+	struct map_content *next;
+} t_map_content;
+
 typedef struct s_game
 {
     void *mlx_ptr;
@@ -66,14 +74,8 @@ typedef struct s_game
 	t_image opened_door;
 	t_image on_door;
 	t_map *map;
+	t_map_content *map_content;
 } 	t_game;	
-
-
-typedef struct map_content
-{
-	char sqm;
-	struct map_content *next;
-} t_map_content;
 
 t_map_content	*lst_new(char value);
 size_t	ft_strlen(const char *str);
@@ -82,5 +84,10 @@ void    error_handling(t_map *map, t_map_content *content);
 void    run_flood_fill(t_map *map, t_map_content *content, t_game *game);
 t_map_content *read_map(char *file, t_map *map, t_map_content *map_content);
 void    fill_matrix(t_map_content *map_content, t_map *map);
+char			*ft_itoa(int n);
+char	*ft_strjoin(char *s1, char *s2);
+void	free_matrix(t_values **matrix, int y);
+void	ft_lstclear(t_map_content **map_content);
+
 
 #endif

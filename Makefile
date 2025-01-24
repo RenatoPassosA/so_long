@@ -1,7 +1,7 @@
 NAME = so_long
 CC = gcc
 CCFLAGS = -Wall -Wextra -Werror -Imlx
-SRC = so_long.o parse_map.o get_next_line.o get_next_line_utils.o utils.o error_handling.o flood_fill.o
+SRC = so_long.o parse_map.o get_next_line.o get_next_line_utils.o utils.o error_handling.o flood_fill.o ft_itoa.o
 MLX = mlx/libmlx.a -L/usr/lib -lXext -lX11 -lm
 
 all: $(NAME)

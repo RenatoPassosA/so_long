@@ -58,17 +58,32 @@ void free_matrix(t_values **matrix, int y)
     free(matrix);
 }
 
+void	ft_lstclear(t_map_content **map_content)
+{
+	t_map_content *tmp;
+
+	if (map_content)
+	{
+		while (*map_content)
+		{
+			tmp = (*map_content)->next;
+			free(*map_content);
+			(*map_content) = tmp;
+		}
+	}
+}
+
 void    fill_matrix(t_map_content *map_content, t_map *map)
 {
     int x;
     int y;
 
     x = 0;
-    y = 0;
+    y = -1;
     map->matrix = (t_values **)malloc(sizeof(t_values *) * map->height);
     if (!map->matrix)
         return ;
-    while (y < map->height)
+    while (++y < map->height)
     {
         map->matrix[y] = (t_values *)malloc(sizeof(t_values) * map->width);
         if (!map->matrix[y])
@@ -84,7 +99,6 @@ void    fill_matrix(t_map_content *map_content, t_map *map)
             x++;
         }
         x = 0;
-        y++;
     }
 }
 
@@ -110,7 +124,6 @@ t_map_content *read_map(char *file, t_map *map, t_map_content *map_content)
     close(fd);
     map->height = yaxis;
     map->width = xaxis;
-    //printf("-------%d------------%d", map->width, map->height);
     free(line);
     return (map_content);
 }
