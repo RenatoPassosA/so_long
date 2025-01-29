@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 int	collectables_counter(t_map_content *content)
 {
@@ -71,6 +71,12 @@ void	run_flood_fill(t_map *map, t_map_content *map_content, t_game *game)
 	starter_position = get_position(map, 'P');
 	game->player.y = starter_position[0];
 	game->player.x = starter_position[1];
+	y = starter_position[0];
+	x = starter_position[1];
+	free(starter_position);
+	starter_position = get_position(map, 'M');
+	game->monster.y = starter_position[0];
+	game->monster.x = starter_position[1];
 	y = starter_position[0];
 	x = starter_position[1];
 	free(starter_position);

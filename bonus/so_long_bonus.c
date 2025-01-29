@@ -1,18 +1,4 @@
-#include "so_long.h"
-
-void	write_movements(t_game *game)
-{
-	char	*s;
-	char	*phrase;
-
-	s = ft_itoa(game->player.moves);
-	phrase = ft_strjoin("Movements: ", s);
-	write(1, phrase, ft_strlen(phrase));
-	write(1, "\n", 1);
-	free(s);
-	free(phrase);
-	render_map(game);
-}
+#include "so_long_bonus.h"
 
 int	check_argument(int ac, char **av, t_game *game)
 {
@@ -30,6 +16,21 @@ int	check_argument(int ac, char **av, t_game *game)
 		return (0);
 	}
 	return (1);
+}
+
+void	show_movements(t_game *game)
+{
+	char	*movements;
+	char	*phrase;
+
+	movements = ft_itoa(game->player.moves);
+	phrase = ft_strjoin("Movements : ", movements);
+	mlx_string_put(game->mlx_ptr, game->win_ptr, 10, 15, 0xFFFFFF, phrase);
+	mlx_string_put(game->mlx_ptr, game->win_ptr, 11, 15, 0xFFFFFF, phrase);
+	mlx_string_put(game->mlx_ptr, game->win_ptr, 11, 16, 0xFFFFFF, phrase);
+	mlx_string_put(game->mlx_ptr, game->win_ptr, 10, 16, 0xFFFFFF, phrase);
+	free(movements);
+	free(phrase);
 }
 
 int	main(int ac, char **av)

@@ -1,76 +1,78 @@
-
 #include "so_long.h"
 
-void map_size(t_map *map)
+int	map_size(t_map *map)
 {
-    if (map->height == 0 || map->width == 0)
-        printf("Error\nsem conteudo");
-    if (map->height == map->width)
-        printf("Error\nmapa não retangular");
+	if (map->height == 0 || map->width == 0)
+		return (1);
+	if (map->height == map->width)
+		return (2);
+	return (0);
 }
 
-void    map_counter(t_map_content *map_content)
+int	map_counter(t_map_content *map_content)
 {
-    int player_counter;
-    int exit_counter;
-    int collect_counter;
+	int	player_counter;
+	int	exit_counter;
+	int	collect_counter;
 
-    player_counter = 0;
-    exit_counter = 0;
-    collect_counter = 0;
-    while(map_content->next != NULL)
-    {
-        if (map_content->sqm == 'P')
-            player_counter++;
-        if (map_content->sqm == 'E')
-            exit_counter++;
-        if (map_content->sqm == 'C')
-        collect_counter++;
-        map_content = map_content->next;
-    }
-    if (player_counter != 1)
-        printf("Error\nmais de uma ou nenhuma posição inicial");
-    if (exit_counter != 1)
-        printf("Error\nmais de uma ou nenhuma saida");
-    if (collect_counter == 0)
-        printf("Error\nnão há coletáveis");
-    return ;
+	player_counter = 0;
+	exit_counter = 0;
+	collect_counter = 0;
+	while (map_content->next != NULL)
+	{
+		if (map_content->sqm == 'P')
+			player_counter++;
+		if (map_content->sqm == 'E')
+			exit_counter++;
+		if (map_content->sqm == 'C')
+			collect_counter++;
+		map_content = map_content->next;
+	}
+	if (player_counter != 1)
+		return (3);
+	if (exit_counter != 1)
+		return (4);
+	if (collect_counter == 0)
+		return (5);
+	return (0);
 }
 
-void    check_borders(t_map *map)
+void	error_handling(t_map *map, t_map_content *map_content, t_game *game)
 {
-    int y;
-    int index;
-    
-    y = 0;
-    index = 0;
-    while (y < map->height)
-    {
-        if (map->matrix[y][0].value != '1' || map->matrix[y][map->width - 1].value != '1')
-            printf("Error\n mapa fora de formato laterallll");
-        y++;   
-    }
-    while (index < map->width)
-    {
-        if (map->matrix[0][index].value != '1')
-            printf("Error\n mapa fora de formato lateral\n");
-        if (map->matrix[map->height - 1][index].value != '1')
-            printf("Error\n mapa fora de formato superior/inferior");
-        index++;
-    }
+	int	n;
+
+	n = map_size(map);
+	if (n != 0)
+		clear_data(map, map_content, game, n);
+	n = map_counter(map_content);
+	if (n != 0)
+		clear_data(map, map_content, game, n);
+	n = check_borders(map);
+	if (n != 0)
+		clear_data(map, map_content, game, n);
 }
 
-void clear_data(t_map *map, t_map_content *map_content)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-    free_matrix(map->matrix, map->height - 1);
-    ft_lstclear(&(map_content));
-    exit(0);
-}
+	size_t	i;
+	size_t	sign;
 
-void    error_handling(t_map *map, t_map_content *map_content) //DAR FREE CORRETAMENTE
-{
-    map_size(map);
-    map_counter(map_content);
-    check_borders(map);
+	if (little[0] == '\0')
+		return ((char *)big);
+	i = 0;
+	while (big[i] && i < len)
+	{
+		sign = 0;
+		if (big[i] == little[sign])
+		{
+			while (i + sign < len && big[i + sign] == little[sign])
+			{
+				sign++;
+				if (little[sign] == '\0')
+					return ((char *)&big[i]);
+			}
+		}
+		i++;
+	}
+	return (0);
 }
-

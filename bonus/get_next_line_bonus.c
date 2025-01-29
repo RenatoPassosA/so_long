@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include "so_long.h"
+#include "get_next_line_bonus.h"
+#include "so_long_bonus.h"
 
 static char	*set_line(char **store)
 {

@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 t_map_content	*parse_line(char *line, t_map_content *map_content)
 {

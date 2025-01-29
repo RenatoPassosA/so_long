@@ -1,4 +1,4 @@
-#include "so_long.h"
+#include "so_long_bonus.h"
 
 static int	get_digits(int n)
 {
@@ -43,16 +43,6 @@ t_map_content	*lst_new(char value)
 	return (node);
 }
 
-size_t	ft_strlen(const char *str)
-{
-	size_t	counter;
-
-	counter = 0;
-	while (str && str[counter] != '\0')
-		counter++;
-	return (counter);
-}
-
 void	ft_lstclear(t_map_content **map_content)
 {
 	t_map_content	*current;
@@ -68,4 +58,14 @@ void	ft_lstclear(t_map_content **map_content)
 		current = next_node;
 	}
 	*map_content = NULL;
+}
+
+size_t	ft_strlen(const char *str)
+{
+	size_t	counter;
+
+	counter = 0;
+	while (str && str[counter] != '\0')
+		counter++;
+	return (counter);
 }

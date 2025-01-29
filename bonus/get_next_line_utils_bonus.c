@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strjoin(char *s1, char *s2)
 {
@@ -53,8 +53,6 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	if (len == 0 || start > ft_strlen((char *)s))
 	{
 		substr = (char *)malloc(sizeof(char));
-		if (substr == NULL)
-			return (NULL);
 		*substr = '\0';
 		return (substr);
 	}
