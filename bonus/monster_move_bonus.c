@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   monster_move_bonus.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rpassos- <rpassos-@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/30 14:27:59 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/01/30 14:28:00 by rpassos-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long_bonus.h"
 
-void	update_monster_animation(t_game *game, char dir)
+static void	update_monster_animation(t_game *game, char dir)
 {
 	if (dir == 'u' || dir == 'd')
 	{
@@ -22,7 +34,7 @@ void	update_monster_animation(t_game *game, char dir)
 	}
 }
 
-void	update_monster_collectable(t_game *game)
+static void	update_monster_collectable(t_game *game)
 {
 	char	tile;
 
@@ -39,7 +51,7 @@ void	update_monster_collectable(t_game *game)
 		game->monster.on_collectable = 0;
 }
 
-void	update_monster_coordinates(t_game *game, char dir)
+static void	update_monster_coordinates(t_game *game, char dir)
 {
 	if (dir == 'u')
 		game->monster.y -= 1;
@@ -49,6 +61,25 @@ void	update_monster_coordinates(t_game *game, char dir)
 		game->monster.x -= 1;
 	else if (dir == 'r')
 		game->monster.x += 1;
+}
+
+static void	random_monster_move(t_game *game)
+{
+	char	random_dir;
+	int		attempts;
+
+	attempts = 0;
+	while (attempts < 4)
+	{
+		random_dir = "udlr"[rand() % 4];
+		if (check_monster_walls(game, random_dir)
+			&& check_monster_boundaries(game))
+		{
+			monster_move(game, random_dir);
+			return ;
+		}
+		attempts++;
+	}
 }
 
 void	monster_move(t_game *game, char dir)
@@ -73,23 +104,4 @@ void	monster_move(t_game *game, char dir)
 	update_monster_collectable(game);
 	game->map->matrix[game->monster.y][game->monster.x].value = 'M';
 	render_map(game);
-}
-
-void	random_monster_move(t_game *game)
-{
-	char	random_dir;
-	int		attempts;
-
-	attempts = 0;
-	while (attempts < 4)
-	{
-		random_dir = "udlr"[rand() % 4];
-		if (check_monster_walls(game, random_dir)
-			&& check_monster_boundaries(game))
-		{
-			monster_move(game, random_dir);
-			return ;
-		}
-		attempts++;
-	}
 }

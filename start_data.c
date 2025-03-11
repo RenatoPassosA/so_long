@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   start_data.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rpassos- <rpassos-@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/17 17:58:30 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/02/17 17:58:32 by rpassos-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 int	get_collectables(t_map_content *map_content)
@@ -44,16 +56,16 @@ void	start_data(t_game *game, t_map *map, t_map_content *map_content)
 	void	*mlx;
 
 	mlx = game->mlx_ptr;
-	game->wall = new_sprite(mlx, "images/wall.xpm");
-	game->floor = new_sprite(mlx, "images/grass.xpm");
-	game->collectable = new_sprite(mlx, "images/collectable.xpm");
-	game->character_up = new_sprite(mlx, "images/up.xpm");
-	game->character_down = new_sprite(mlx, "images/down.xpm");
-	game->character_left = new_sprite(mlx, "images/left.xpm");
-	game->character_right = new_sprite(mlx, "images/right.xpm");
-	game->closed_door = new_sprite(mlx, "images/closed_door.xpm");
-	game->opened_door = new_sprite(mlx, "images/opened_door.xpm");
-	game->on_door = new_sprite(mlx, "images/on_door.xpm");
+	game->wall = new_sprite(mlx, "images/64wall.xpm");
+	game->floor = new_sprite(mlx, "images/64grass.xpm");
+	game->collectable = new_sprite(mlx, "images/64collectable.xpm");
+	game->character_up = new_sprite(mlx, "images/64up.xpm");
+	game->character_down = new_sprite(mlx, "images/64down.xpm");
+	game->character_left = new_sprite(mlx, "images/64left.xpm");
+	game->character_right = new_sprite(mlx, "images/64right.xpm");
+	game->closed_door = new_sprite(mlx, "images/64closed_door.xpm");
+	game->opened_door = new_sprite(mlx, "images/64opened_door.xpm");
+	game->on_door = new_sprite(mlx, "images/64on_door.xpm");
 	game->map = map;
 	game->map_content = map_content;
 	game->player.collected = get_collectables(map_content);

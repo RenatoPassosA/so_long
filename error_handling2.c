@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_handling2.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rpassos- <rpassos-@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/30 14:29:14 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/01/30 14:29:15 by rpassos-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 int	check_borders(t_map *map)
@@ -50,17 +62,17 @@ void	error_msgs(int n)
 		str = "Error.\n More than one or no starting position or exit";
 	else if (n == 5)
 		str = "Error.\n No collectibles";
-	else if (n == 6)
-		str = "Error.\n Left or right border is malformed";
-	else if (n == 7)
-		str = "Error.\n Map is misaligned on the sides";
-	else if (n == 8)
-		str = "Error.\n Map is misaligned on top/bottom";
+	else if (n == 6 || n == 7 || n == 8)
+		str = "Error.\n Border is malformed";
 	else if (n == 9)
 		str = "Error.\n Could not reach the collectibles or the exit";
 	else if (n == 10)
 		str = "Error.\n One of the lines is too long";
 	else if (n == 11)
 		str = "Error.\n No monster or more than one monster";
+	else if (n == 12)
+		str = "Error.\n Forbiden values on the map";
+	else if (n == 13)
+		str = "Error.\n Map is too big";
 	put_str(str);
 }

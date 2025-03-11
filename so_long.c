@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rpassos- <rpassos-@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/30 14:28:53 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/01/30 14:28:55 by rpassos-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 void	write_movements(t_game *game)
@@ -14,7 +26,7 @@ void	write_movements(t_game *game)
 	render_map(game);
 }
 
-int	check_argument(int ac, char **av, t_game *game)
+int	check_argument(int ac, char **av)
 {
 	int	len;
 
@@ -38,7 +50,7 @@ int	main(int ac, char **av)
 	t_map			*map;
 	t_map_content	*map_content;
 
-	if (!check_argument(ac, av, game))
+	if (!check_argument(ac, av))
 		return (0);
 	map = (t_map *)malloc(sizeof(t_map));
 	if (!map)
@@ -57,5 +69,6 @@ int	main(int ac, char **av)
 	mlx_key_hook(game->win_ptr, keyboard_action, game);
 	mlx_hook(game->win_ptr, 17, 0, finish_game, game);
 	mlx_loop(game->mlx_ptr);
+	clear_data(map, map_content, game, 1);
 	return (0);
 }

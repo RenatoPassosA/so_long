@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   monster_move2_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rpassos- <rpassos-@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/30 14:27:53 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/01/30 14:27:55 by rpassos-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long_bonus.h"
 
 int	check_monster_boundaries(t_game *game)
@@ -49,6 +61,7 @@ int	get_the_player(t_game *game)
 {
 	char	dir;
 
+	dir = '\0';
 	if (game->monster.x < game->player.x)
 	{
 		dir = 'r';

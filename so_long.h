@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rpassos- <rpassos-@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/30 14:28:59 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/01/30 14:29:00 by rpassos-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -8,9 +20,9 @@
 # include <string.h>
 # include <unistd.h>
 
-# define IMG_WIDTH 32
-# define IMG_HEIGHT 32
-# define TILE_SIZE 32
+# define IMG_WIDTH 64
+# define IMG_HEIGHT 64
+# define TILE_SIZE 64
 
 typedef struct player
 {
@@ -55,6 +67,7 @@ typedef struct s_game
 	void				*win_ptr;
 	int					width;
 	int					height;
+	int					x_axis;
 	t_player			player;
 	t_image				floor;
 	t_image				wall;

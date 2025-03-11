@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   finish_game_bonus.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rpassos- <rpassos-@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/30 14:27:36 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/01/30 14:27:38 by rpassos-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long_bonus.h"
 
-void	destroyer(t_game *game)
+static void	destroyer(t_game *game)
 {
 	mlx_destroy_image(game->mlx_ptr, game->wall.xpm_ptr);
 	mlx_destroy_image(game->mlx_ptr, game->floor.xpm_ptr);
@@ -24,10 +36,11 @@ void	destroyer(t_game *game)
 	mlx_destroy_display(game->mlx_ptr);
 }
 
-void	free_all(t_game *game)
+static void	free_all(t_game *game)
 {
 	free_matrix(game->map->matrix, game->height);
 	ft_lstclear(&(game->map_content));
+	free(game->map);
 	free(game->animation.walk_left);
 	free(game->animation.walk_right);
 	free(game->animation.walk_ud);

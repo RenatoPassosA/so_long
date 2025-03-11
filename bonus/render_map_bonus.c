@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_map_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rpassos- <rpassos-@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/30 14:28:20 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/01/30 14:28:21 by rpassos-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long_bonus.h"
 
-void	render_player_direction(t_game *game, int line, int column)
+static void	render_player_direction(t_game *game, int line, int column)
 {
 	if (game->player.direction == 'u')
 		mlx_put_image_to_window(game->mlx_ptr, game->win_ptr,
@@ -17,7 +29,7 @@ void	render_player_direction(t_game *game, int line, int column)
 			* TILE_SIZE);
 }
 
-void	render_monster_direction(t_game *game, int line, int column)
+static void	render_monster_direction(t_game *game, int line, int column)
 {
 	int	current_frame;
 
@@ -44,13 +56,13 @@ void	render_monster_direction(t_game *game, int line, int column)
 	}
 }
 
-void	render_sprite(t_game *game, t_image sprite, int line, int column)
+static void	render_sprite(t_game *game, t_image sprite, int line, int column)
 {
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, sprite.xpm_ptr, column
 		* TILE_SIZE, line * TILE_SIZE);
 }
 
-void	check_sprite(t_game *game, int y, int x)
+static void	check_sprite(t_game *game, int y, int x)
 {
 	char	value;
 

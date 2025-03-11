@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rpassos- <rpassos-@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/17 17:58:23 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/02/17 17:58:24 by rpassos-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 t_map_content	*parse_line(char *line, t_map_content *map_content)
@@ -27,22 +39,20 @@ t_map_content	*parse_line(char *line, t_map_content *map_content)
 	return (map_content);
 }
 
-void	check_x_len(char *line, int *xaxis, t_game *game)
+static void	check_x_len(char *line, t_game *game, t_map *map,
+		t_map_content *map_content)
 {
 	size_t	len;
 
 	len = ft_strlen(line);
 	if (line[len - 1] == '\n')
 		len--;
-	if (*xaxis == 0)
-		*xaxis = len;
-	else if (*xaxis != (int)len)
+	if (game->x_axis == 0)
+		game->x_axis = len;
+	else if (game->x_axis != (int)len)
 	{
 		free(line);
-		error_msgs(10);
-		ft_lstclear(&game->map_content);
-		free(game);
-		exit(0);
+		clear_data(map, map_content, game, 10);
 	}
 }
 
@@ -51,7 +61,7 @@ void	free_matrix(t_values **matrix, int y)
 	int	i;
 
 	i = 0;
-	while (i < y)
+	while (i <= y)
 	{
 		free(matrix[i]);
 		i++;
@@ -94,10 +104,9 @@ t_map_content	*read_map(char *file, t_map *map, t_map_content *map_content,
 	int		fd;
 	char	*line;
 	int		yaxis;
-	int		xaxis;
 
 	yaxis = 0;
-	xaxis = 0;
+	game->x_axis = 0;
 	fd = open(file, O_RDONLY);
 	if (fd == -1)
 		return (NULL);
@@ -105,14 +114,14 @@ t_map_content	*read_map(char *file, t_map *map, t_map_content *map_content,
 	while (line != NULL)
 	{
 		map_content = parse_line(line, map_content);
-		check_x_len(line, &xaxis, game);
+		check_x_len(line, game, map, map_content);
 		free(line);
 		yaxis++;
 		line = get_next_line(fd);
 	}
 	close(fd);
 	map->height = yaxis;
-	map->width = xaxis;
+	map->width = game->x_axis;
 	free(line);
 	return (map_content);
 }

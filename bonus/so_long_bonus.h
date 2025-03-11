@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rpassos- <rpassos-@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/17 17:44:09 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/02/17 17:44:10 by rpassos-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_BONUS_H
 # define SO_LONG_BONUS_H
 
@@ -8,9 +20,9 @@
 # include <string.h>
 # include <unistd.h>
 
-# define IMG_WIDTH 32
-# define IMG_HEIGHT 32
-# define TILE_SIZE 32
+# define IMG_WIDTH 64
+# define IMG_HEIGHT 64
+# define TILE_SIZE 64
 
 typedef struct monster
 {
@@ -80,6 +92,7 @@ typedef struct s_game
 	int					count_e;
 	int					count_c;
 	int					count_m;
+	int					x_axis;
 	t_player			player;
 	t_monster			monster;
 	t_sprites			animation;
@@ -119,7 +132,6 @@ void					error_msgs(int n);
 int						get_the_player(t_game *game);
 char					get_value(t_game *game, int y, int x);
 int						render_map(t_game *game);
-void					random_monster_move(t_game *game);
 int						finish_game(t_game *game);
 void					check_surrounding(t_game *game);
 void					put_str(char *str);

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_handling_bonus.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rpassos- <rpassos-@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/30 14:27:27 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/01/30 14:27:29 by rpassos-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long_bonus.h"
 
-int	map_counter(t_map_content *map_content, t_game *game)
+static int	map_counter(t_map_content *map_content, t_game *game)
 {
 	game->count_p = 0;
 	game->count_e = 0;
@@ -27,7 +39,7 @@ int	map_counter(t_map_content *map_content, t_game *game)
 	return (0);
 }
 
-int	check_borders(t_map *map)
+static int	check_borders(t_map *map)
 {
 	int	y;
 	int	index;
@@ -54,11 +66,28 @@ int	check_borders(t_map *map)
 
 void	clear_data(t_map *map, t_map_content *map_content, t_game *game, int n)
 {
-	free_matrix(map->matrix, map->height - 1);
+	get_next_line(1000);
+	if (n != 10)
+		free_matrix(map->matrix, map->height);
 	error_msgs(n);
 	ft_lstclear(&map_content);
+	free(map_content);
+	free(map);
 	free(game);
 	exit(0);
+}
+
+static int	check_values(t_map_content *map_content)
+{
+	while (map_content->next != NULL)
+	{
+		if (map_content->sqm != '0' && map_content->sqm != '1'
+			&& map_content->sqm != 'P' && map_content->sqm != 'C'
+			&& map_content->sqm != 'E' && map_content->sqm != 'M')
+			return (12);
+		map_content = map_content->next;
+	}
+	return (0);
 }
 
 void	error_handling(t_map *map, t_map_content *map_content, t_game *game)
@@ -72,6 +101,9 @@ void	error_handling(t_map *map, t_map_content *map_content, t_game *game)
 	if (n != 0)
 		clear_data(map, map_content, game, n);
 	n = check_borders(map);
+	if (n != 0)
+		clear_data(map, map_content, game, n);
+	n = check_values(map_content);
 	if (n != 0)
 		clear_data(map, map_content, game, n);
 }

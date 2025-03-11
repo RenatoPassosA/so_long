@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   start_data_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rpassos- <rpassos-@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/30 14:28:36 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/01/30 14:28:37 by rpassos-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long_bonus.h"
 
-int	get_amount(t_map_content *map_content, char search)
+static int	get_amount(t_map_content *map_content, char search)
 {
 	int	counter;
 
@@ -27,7 +39,7 @@ void	init_mlx(t_game *game, t_map *map)
 		free(game->mlx_ptr);
 }
 
-t_image	new_sprite(void *mlx, char *path)
+static t_image	new_sprite(void *mlx, char *path)
 {
 	t_image	sprite;
 
@@ -39,7 +51,7 @@ t_image	new_sprite(void *mlx, char *path)
 	return (sprite);
 }
 
-void	start_animation_data(t_game *game)
+static void	start_animation_data(t_game *game)
 {
 	void	*mlx;
 
@@ -50,16 +62,16 @@ void	start_animation_data(t_game *game)
 	if (!game->animation.walk_right || !game->animation.walk_left
 		|| !game->animation.walk_ud)
 		return ;
-	game->animation.walk_left[0] = new_sprite(mlx, "../images/ewalkl1.xpm");
-	game->animation.walk_left[1] = new_sprite(mlx, "../images/ewalkl2.xpm");
-	game->animation.walk_left[2] = new_sprite(mlx, "../images/ewalkl3.xpm");
+	game->animation.walk_left[0] = new_sprite(mlx, "images/64ewalkl1.xpm");
+	game->animation.walk_left[1] = new_sprite(mlx, "images/64ewalkl2.xpm");
+	game->animation.walk_left[2] = new_sprite(mlx, "images/64ewalkl3.xpm");
 	game->animation.current_l = 0;
-	game->animation.walk_right[0] = new_sprite(mlx, "../images/ewalkr1.xpm");
-	game->animation.walk_right[1] = new_sprite(mlx, "../images/ewalkr2.xpm");
-	game->animation.walk_right[2] = new_sprite(mlx, "../images/ewalkr3.xpm");
+	game->animation.walk_right[0] = new_sprite(mlx, "images/64ewalkr1.xpm");
+	game->animation.walk_right[1] = new_sprite(mlx, "images/64ewalkr2.xpm");
+	game->animation.walk_right[2] = new_sprite(mlx, "images/64ewalkr3.xpm");
 	game->animation.current_r = 0;
-	game->animation.walk_ud[0] = new_sprite(mlx, "../images/ud1.xpm");
-	game->animation.walk_ud[1] = new_sprite(mlx, "../images/ud3.xpm");
+	game->animation.walk_ud[0] = new_sprite(mlx, "images/64ud1.xpm");
+	game->animation.walk_ud[1] = new_sprite(mlx, "images/64ud3.xpm");
 	game->animation.current_ud = 0;
 }
 
@@ -68,16 +80,16 @@ void	start_data(t_game *game, t_map *map, t_map_content *map_content)
 	void	*mlx;
 
 	mlx = game->mlx_ptr;
-	game->wall = new_sprite(mlx, "../images/wall.xpm");
-	game->floor = new_sprite(mlx, "../images/grass.xpm");
-	game->collectable = new_sprite(mlx, "../images/collectable.xpm");
-	game->character_up = new_sprite(mlx, "../images/up.xpm");
-	game->character_down = new_sprite(mlx, "../images/down.xpm");
-	game->character_left = new_sprite(mlx, "../images/left.xpm");
-	game->character_right = new_sprite(mlx, "../images/right.xpm");
-	game->closed_door = new_sprite(mlx, "../images/closed_door.xpm");
-	game->opened_door = new_sprite(mlx, "../images/opened_door.xpm");
-	game->on_door = new_sprite(mlx, "../images/on_door.xpm");
+	game->wall = new_sprite(mlx, "images/64wall.xpm");
+	game->floor = new_sprite(mlx, "images/64grass.xpm");
+	game->collectable = new_sprite(mlx, "images/64collectable.xpm");
+	game->character_up = new_sprite(mlx, "images/64up.xpm");
+	game->character_down = new_sprite(mlx, "images/64down.xpm");
+	game->character_left = new_sprite(mlx, "images/64left.xpm");
+	game->character_right = new_sprite(mlx, "images/64right.xpm");
+	game->closed_door = new_sprite(mlx, "images/64closed_door.xpm");
+	game->opened_door = new_sprite(mlx, "images/64opened_door.xpm");
+	game->on_door = new_sprite(mlx, "images/64on_door.xpm");
 	game->map = map;
 	game->map_content = map_content;
 	game->player.collected = get_amount(map_content, 'C');

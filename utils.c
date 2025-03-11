@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rpassos- <rpassos-@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/30 14:29:32 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/01/30 14:29:33 by rpassos-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 static int	get_digits(int n)
@@ -67,5 +79,6 @@ void	ft_lstclear(t_map_content **map_content)
 		free(current);
 		current = next_node;
 	}
+	free(current);
 	*map_content = NULL;
 }

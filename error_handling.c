@@ -1,15 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_handling.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rpassos- <rpassos-@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/30 14:29:22 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/01/30 14:29:23 by rpassos-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
-int	map_size(t_map *map)
+static int	map_size(t_map *map)
 {
 	if (map->height == 0 || map->width == 0)
 		return (1);
 	if (map->height == map->width)
 		return (2);
+	if (map->height > 16 || map->width > 30)
+		return (13);
 	return (0);
 }
 
-int	map_counter(t_map_content *map_content)
+static int	map_counter(t_map_content *map_content)
 {
 	int	player_counter;
 	int	exit_counter;
@@ -37,6 +51,19 @@ int	map_counter(t_map_content *map_content)
 	return (0);
 }
 
+static int	check_values(t_map_content *map_content)
+{
+	while (map_content->next != NULL)
+	{
+		if (map_content->sqm != '0' && map_content->sqm != '1'
+			&& map_content->sqm != 'P' && map_content->sqm != 'C'
+			&& map_content->sqm != 'E')
+			return (12);
+		map_content = map_content->next;
+	}
+	return (0);
+}
+
 void	error_handling(t_map *map, t_map_content *map_content, t_game *game)
 {
 	int	n;
@@ -48,6 +75,9 @@ void	error_handling(t_map *map, t_map_content *map_content, t_game *game)
 	if (n != 0)
 		clear_data(map, map_content, game, n);
 	n = check_borders(map);
+	if (n != 0)
+		clear_data(map, map_content, game, n);
+	n = check_values(map_content);
 	if (n != 0)
 		clear_data(map, map_content, game, n);
 }

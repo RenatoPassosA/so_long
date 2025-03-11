@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player_movement_bonus.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rpassos- <rpassos-@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/30 14:28:16 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/01/30 14:28:18 by rpassos-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long_bonus.h"
 
-void	change_value(t_game *game, char direction, int closed_door)
+static void	change_value(t_game *game, char direction, int closed_door)
 {
 	if (direction == 'u')
 		game->player.y -= 1;
@@ -14,7 +26,7 @@ void	change_value(t_game *game, char direction, int closed_door)
 		finish_game(game);
 }
 
-void	set_new_values(t_game *game, char direction, int closed_door)
+static void	set_new_values(t_game *game, char direction, int closed_door)
 {
 	int	prev_x;
 	int	prev_y;
@@ -43,7 +55,7 @@ void	set_new_values(t_game *game, char direction, int closed_door)
 		game->map->matrix[y][x].value = 'E';
 }
 
-void	actions(t_game *game, char dir, int *check_movement)
+static void	actions(t_game *game, char dir, int *check_movement)
 {
 	int	closed_door;
 

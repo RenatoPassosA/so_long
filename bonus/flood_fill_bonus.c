@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   flood_fill_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rpassos- <rpassos-@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/30 14:27:41 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/01/30 14:27:42 by rpassos-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long_bonus.h"
 
-int	collectables_counter(t_map_content *content)
+static int	collectables_counter(t_map_content *content)
 {
 	int	collect_counter;
 
@@ -14,7 +26,7 @@ int	collectables_counter(t_map_content *content)
 	return (collect_counter);
 }
 
-int	*get_position(t_map *map, char value)
+static int	*get_position(t_map *map, char value)
 {
 	int	*coordinates;
 	int	x;
@@ -43,7 +55,7 @@ int	*get_position(t_map *map, char value)
 	return (NULL);
 }
 
-void	flood_fill(t_map *map, int y, int x)
+static void	flood_fill(t_map *map, int y, int x)
 {
 	if (x < 0 || y < 0 || x >= map->width || y >= map->height)
 		return ;

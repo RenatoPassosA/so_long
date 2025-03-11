@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long_bonus.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rpassos- <rpassos-@student.42.rio>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/30 14:28:30 by rpassos-          #+#    #+#             */
+/*   Updated: 2025/01/30 14:28:31 by rpassos-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long_bonus.h"
 
-int	check_argument(int ac, char **av, t_game *game)
+static int	check_argument(int ac, char **av)
 {
 	int	len;
 
@@ -39,7 +51,7 @@ int	main(int ac, char **av)
 	t_map			*map;
 	t_map_content	*map_content;
 
-	if (!check_argument(ac, av, game))
+	if (!check_argument(ac, av))
 		return (0);
 	map = (t_map *)malloc(sizeof(t_map));
 	if (!map)
